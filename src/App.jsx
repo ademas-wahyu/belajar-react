@@ -1,30 +1,46 @@
 import React from "react";
 
-function App() {
-  const [angka, setAngka] = React.useState(0);
+function MyButton({ text, onClick, counter }) {
 
-  function Minus() {
-    setAngka(angka - 1);
+    const myStyle = (text !== 'Reset!') ? {} : {margin: 20, display: 'block'};
+
+
+    return (
+      <button onClick={onClick} style={myStyle}>
+        {text}
+      </button>
+    );
   }
 
-  function Plus() {
-    setAngka(angka + 1);
+  function MyCounter({counter}) {
+    return (
+      <span style={{ margin: 20 }}>{counter}</span>
+    )
   }
 
-  function reset() {
-    setAngka(0);
-  }
+  function App() {
+    const [counter, setCounter] = React.useState(0);
 
-  return (
-    <div>
+    function increment() {
+      setCounter(counter + 1);
+    }
+
+    function decrement() {
+      setCounter(counter - 1);
+    }
+
+    function reset() {
+      setCounter(0);
+    }
+
+    return (
       <div>
-        <button onClick={Minus}>-</button>
-        <span>{angka}</span>
-        <button onClick={Plus}>+</button>
+        <MyButton text={'-'} onClick={decrement} counter={counter} />
+        <MyCounter counter={counter} />
+        <MyButton text={'+'} onClick={increment} counter={counter} />   
+        <MyButton text={'Reset!'} onClick={reset} counter={counter} />
       </div>
-      <button onClick={reset}>Reset</button>
-    </div>
-  );
-}
+    );
+  }
 
-export default App;
+  export default App;
